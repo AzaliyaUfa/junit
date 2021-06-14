@@ -3,6 +3,12 @@ package ru.ibs.intership;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Scanner;
+import java.lang.NumberFormatException;
 
 public class TestJunitHW {
 
@@ -25,7 +31,29 @@ public class TestJunitHW {
     }
 
     @Test
-    void fileContentTest () {
+    void actionWithContentStringTest () throws IOException {
+        final BufferedReader br = Mockito.mock(BufferedReader.class);
+        Mockito.when(br.readLine()).thenReturn("str");
+        Assertions.assertThrows(NumberFormatException.class, () -> {
+            JunitHW.actionWithContent(br);
+        });
+        br.close();
+    }
 
+    @Test
+    void actionWithContentSeveralNumbersTest () throws IOException {
+        final BufferedReader br = Mockito.mock(BufferedReader.class);
+        Mockito.when(br.readLine()).thenReturn("15 10");
+        Assertions.assertThrows(NumberFormatException.class, () -> {
+            JunitHW.actionWithContent(br);
+        });
+        br.close();
+    }
+
+    @Test
+    void mainMethodTest ()  {
+        final Scanner sc = Mockito.mock(Scanner.class);
+        Mockito.when(sc.nextLine()).thenReturn("no file");
+        Assertions.assertThrows(IOException.class, JunitHW::mainMethod);
     }
 }

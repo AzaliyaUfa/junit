@@ -1,30 +1,38 @@
 package ru.ibs.intership;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class JunitHW {
 
     public static void main(String[] args) {
-
-        try (BufferedReader br = new BufferedReader(new FileReader(createFile()))) {
-            while (br.ready()) {
-                Integer num = Integer.parseInt(br.readLine());
-                System.out.println(fizzBuzz(num));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mainMethod();
 
     }
 
-    public static File createFile() {
+    public static void mainMethod() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Print the address of the file");
-        return new File(sc.nextLine());
+
+        try (BufferedReader br = new BufferedReader(new FileReader(sc.nextLine()))) {
+            while (br.ready()) {
+                actionWithContent(br);
+            }
+        } catch (IOException e) {
+            System.out.println("File creation error");
+            e.printStackTrace();
+        }
+    }
+
+    public static void actionWithContent(BufferedReader br) {
+        try {
+            Integer num = Integer.parseInt(br.readLine());
+            System.out.println(fizzBuzz(num));
+        } catch (NumberFormatException | IOException ex) {
+            System.out.println("File must contain only numbers one by one!");
+            ex.printStackTrace();
+            System.exit(0);
+        }
     }
 
     public static String fizzBuzz(Integer num) {
