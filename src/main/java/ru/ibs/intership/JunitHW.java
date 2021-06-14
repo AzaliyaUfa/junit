@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 public class JunitHW {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         mainMethod();
 
     }
 
-    public static void mainMethod() {
+    public static void mainMethod() throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Print the address of the file");
 
@@ -21,17 +21,17 @@ public class JunitHW {
         } catch (IOException e) {
             System.out.println("File creation error");
             e.printStackTrace();
+            throw new IOException("Invalid file path");
         }
     }
 
-    public static void actionWithContent(BufferedReader br) {
+    public static void actionWithContent(BufferedReader br)  {
         try {
             Integer num = Integer.parseInt(br.readLine());
             System.out.println(fizzBuzz(num));
         } catch (NumberFormatException | IOException ex) {
-            System.out.println("File must contain only numbers one by one!");
             ex.printStackTrace();
-            System.exit(0);
+            throw new NumberFormatException("File must contain only numbers one by one!");
         }
     }
 

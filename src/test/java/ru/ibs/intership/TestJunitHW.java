@@ -4,10 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Scanner;
 import java.lang.NumberFormatException;
 
 public class TestJunitHW {
@@ -52,8 +51,9 @@ public class TestJunitHW {
 
     @Test
     void mainMethodTest ()  {
-        final Scanner sc = Mockito.mock(Scanner.class);
-        Mockito.when(sc.nextLine()).thenReturn("no file");
+        ByteArrayInputStream in = new ByteArrayInputStream("Wrong path".getBytes());
+        System.setIn(in);
         Assertions.assertThrows(IOException.class, JunitHW::mainMethod);
+        System.setIn(System.in);
     }
 }
