@@ -26,12 +26,6 @@ public class TestJunitHW {
 
     @Test
     void fileContentTest () {
-        String expected = "1 FizzBuzz 13 8 Fizz FizzBuzz ";
-        StringBuilder actual = new StringBuilder("");
-        Integer intArray[] = {1, 15, 13, 8, 9, 0};
-        for (int i = 0; i < intArray.length; i++) {
-            actual.append(JunitHW.fizzBuzz(intArray[i]) + " ");
-        }
-        Assertions.assertEquals(expected, actual.toString());
+
     }
 }
